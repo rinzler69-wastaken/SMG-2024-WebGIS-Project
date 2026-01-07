@@ -1,0 +1,367 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body, #map {
+    height: 80%; /* Membuat peta memenuhi seluruh tinggi browser */
+    width: 100%;
+}
+
+/* --- MATERIAL NAVBAR --- */
+.material-navbar {
+    display: flex;
+    justify-content: space-between; /* Logo Kiri, Toggle Kanan */
+    align-items: center;
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
+    padding: 0 24px;
+    height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Brand/Logo */
+.nav-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.5px;
+    z-index: 2001; /* Pastikan di atas layer menu jika layar sempit */
+}
+
+/* Menu Container - DEAD CENTER LOGIC */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    
+    /* Trik Dead Center: Lepaskan dari aliran flex normal */
+    position: absolute; 
+    left: 50%;
+    transform: translateX(-50%); /* Geser balik 50% lebarnya sendiri */
+}
+
+/* Link Styles (Tetap sama, Pill Shape) */
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.nav-link:hover {
+    background-color: rgba(128, 128, 128, 0.1);
+    opacity: 1;
+}
+
+.nav-link.active {
+    background-color: #007bff;
+    color: white !important;
+    opacity: 1;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+/* --- THEME TOGGLE BUTTON (UPDATED) --- */
+.nav-theme-btn {
+    /* Shape & Size */
+    width: 42px;  /* Lebar fix */
+    height: 42px; /* Tinggi fix (sama biar bulat) */
+    border-radius: 50%; /* Lingkaran Sempurna */
+    border: none;
+    
+    /* Coloring (Constant Background) */
+    background-color: rgba(128, 128, 128, 0.1); /* Abu-abu transparan halus */
+    color: var(--text-color);
+    
+    /* Layout Icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    
+    z-index: 2001; /* Di atas menu absolute */
+}
+
+.nav-theme-btn:hover {
+    background-color: rgba(128, 128, 128, 0.25); /* Lebih gelap dikit pas hover */
+    transform: scale(1.05); /* Efek pop-up dikit */
+}
+
+/* --- UPDATE BAGIAN INI DI style.css --- */
+
+/* Hapus rule lama ".nav-theme-btn svg" dan ganti dengan ini: */
+.nav-theme-btn span {
+    font-size: 24px; /* Ukuran icon */
+    font-weight: normal;
+    color: inherit;
+    line-height: 1; /* Biar pas di tengah vertikal */
+}
+
+
+/* --- MATERIAL CONTROL BAR --- */
+#controls {
+    position: fixed;
+    bottom: 20px; /* Di bawah Navbar */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    
+    /* Material Card Style */
+    background-color: var(--nav-bg); /* Ikut warna Navbar (Putih/Gelap) */
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 50px; /* Bentuk Pill/Kapsul khas Material 3 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    font-family: 'Red Hat Display', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- BUTTON STYLING --- */
+.material-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.material-btn:hover {
+    background-color: rgba(128, 128, 128, 0.1); /* Efek Hover halus */
+}
+
+/* Active State (Tombol yang sedang dipilih) */
+.material-btn.active {
+    background-color: #007bff; /* Warna Aksen Biru */
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+/* --- ZOOM BUTTONS (+ / -) --- */
+.icon-btn {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%; /* Lingkaran sempurna */
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(128, 128, 128, 0.1); /* Sedikit abu-abu biar beda */
+}
+
+.icon-btn:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+}
+
+/* --- DROPDOWN --- */
+.material-select {
+    background-color: transparent;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+}
+
+.material-select:focus {
+    border-color: #007bff;
+}
+
+.material-select option {
+    background-color: var(--nav-bg); /* Biar dropdown menu ngikut tema */
+    color: var(--text-color);
+}
+
+/* --- DIVIDER --- */
+.divider {
+    width: 1px;
+    height: 24px;
+    background-color: rgba(128, 128, 128, 0.3);
+}
+
+
+#district-selector {
+    margin-left: 10px;
+    padding: 5px;
+}
+
+/* --- VARIABLE TEMA (Light Mode Default) --- */
+:root {
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --nav-bg: #ffffff;
+    --nav-text: #333;
+    --card-bg: #ffffff;
+}
+
+/* --- DARK MODE VARIABLES --- */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --nav-bg: #1e1e1e;
+    --nav-text: #ffffff;
+    --card-bg: #1e1e1e;
+}
+
+/* --- GLOBAL STYLES --- */
+body {
+    margin: 0;
+    font-family: 'Red Hat Display', sans-serif; /* Ingat font favoritmu! */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- NAVBAR --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--nav-bg);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky; /* Biar nempel di atas */
+    top: 0;
+    z-index: 2000;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--nav-text);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+nav a:hover {
+    color: #007bff; /* Warna aksen */
+}
+
+/* Tombol Dark Mode */
+#theme-toggle {
+    background: none;
+    cursor: pointer;
+}
+
+/* Pastikan peta tingginya dikurangi tinggi navbar biar gak scroll */
+#map {
+    /* 100vh = 100% Viewport Height (Tinggi Layar Penuh) */
+    /* 70px  = Estimasi tinggi Navbar kita */
+    height: calc(100vh - 70px); 
+    
+    width: 100%;
+    
+    /* Pastikan peta tidak tertutup navbar */
+    margin-top: 0; 
+    z-index: 1; /* Pastikan dia di bawah navbar (navbar z-index 2000) */
+}
+
+/* --- TAMBAHAN PENTING --- */
+.zoom-group {
+    display: flex;       /* KUNCI: Memaksa anak elemen sejajar horizontal */
+    flex-direction: row; /* Pastikan arahnya baris (kiri-kanan) */
+    align-items: center; /* Tengah secara vertikal */
+    gap: 5px;            /* Jarak antara tombol minus dan plus */
+}
+
+/* Pastikan tombol zoom tidak mengecil aneh */
+.icon-btn {
+    flex-shrink: 0; 
+}
+
+/* --- X-RAY VISION (Blending Mode) --- */
+/* Ini bikin warna poligon jadi kayak stabilo, jalanan hitam di bawahnya bakal nembus ke atas */
+
+.leaflet-overlay-pane path {
+    mix-blend-mode: multiply; /* KUNCI RAHASIA: Multiply */
+    opacity: 0.8; /* Sedikit transparan */
+}
+
+/* Khusus Dark Mode (karena Multiply gak jalan di background hitam) */
+body.dark-mode .leaflet-overlay-pane path {
+    mix-blend-mode: multiply; /* Screen bikin warna 'nyala' di atas hitam */
+    opacity: 0.8;
+}
+
+/* --- MATERIAL LEGEND FIX --- */
+.info.legend {
+    /* Fallback warna putih kalau variabel error */
+    background: white; 
+    background-color: var(--nav-bg, white); 
+    
+    color: #333;
+    color: var(--text-color, #333);
+    
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    
+    /* Font styling */
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    
+    /* Pastikan dia nongol di atas peta */
+    z-index: 9999; 
+    
+    /* Jarak dari pojok kanan bawah */
+    margin-bottom: 30px;
+    margin-right: 20px;
+    min-width: 150px;
+}
+
+.legend h4 {
+    margin: 0 0 8px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+/* Kotak Warna Kecil (Swatch) */
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    border-radius: 4px; /* Sedikit rounded */
+    opacity: 0.8;
+}
+
+/* Layout Baris */
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}

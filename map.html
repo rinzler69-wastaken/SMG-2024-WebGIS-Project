@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analisis Bencana Kota Semarang</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+
+<nav class="material-navbar">
+    <div class="nav-brand">
+        <b>SIG SEMARANG</b>
+    </div>
+
+    <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="map.html" class="nav-link">Peta Interaktif</a></li>
+        <li><a href="about.html" class="nav-link">Tentang</a></li>
+    </ul>
+
+    <button id="nav-theme-btn" class="nav-theme-btn" title="Ganti Mode">
+        <span id="theme-icon" class="material-symbols-outlined">dark_mode</span>
+    </button>
+</nav>
+
+<div id="controls" class="material-card">
+    
+    <div class="control-group zoom-group">
+        
+        <button class="material-btn icon-btn" onclick="resetView()" title="Reset View">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor">
+                <path d="M440-42v-80q-125-14-214.5-103.5T122-440h-80v-80h80q14-125 103.5-214.5T440-838v-80h80v80q125 14 214.5 103.5T838-520h80v80h-80q-14 125-103.5 214.5T520-122v80h-80Zm40-158q116 0 198-82t82-198q0-116-82-198t-198-82q-116 0-198 82t-82 198q0 116 82 198t198 82Zm0-120q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Z"/>
+            </svg>
+        </button>
+
+        <div class="divider"></div>
+
+        <button id="btn-zoom-out" class="material-btn icon-btn" onclick="customZoomOut()" title="Zoom Out">−</button>
+        <button id="btn-zoom-in" class="material-btn icon-btn" onclick="customZoomIn()" title="Zoom In">+</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="control-group data-group">
+        <button class="material-btn active" onclick="changeDataView('Total', this)">Total</button>
+        <button class="material-btn" onclick="changeDataView('Banjir', this)">Banjir</button>
+        <button class="material-btn" onclick="changeDataView('Longsor', this)">Longsor</button>
+        <button class="material-btn" onclick="changeDataView('Dominan', this)">Dominan</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="control-group">
+        <select id="district-selector" class="material-select" onchange="zoomToDistrict(this.value)">
+            <option value="" disabled selected>Cari Kecamatan...</option>
+        </select>
+    </div>
+
+</div>
+
+    <div id="map"></div>
+
+    <script src="script.js"></script>
+    <script src="global.js"></script>
+
+</body>
+</html>
